@@ -105,6 +105,8 @@ def common_options(parser, opts):
     group = parser.add_argument_group("Modify Headers")
     opts.make_parser(group, "modify_headers", metavar="PATTERN", short="H")
 
+    opts.make_parser(parser, "ensure_ascii")
+
 
 def mitmproxy(opts):
     parser = argparse.ArgumentParser(usage="%(prog)s [options]")

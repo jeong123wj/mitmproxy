@@ -63,6 +63,7 @@ def prettify_message(
     flow: flow.Flow,
     view_name: str = "auto",
     registry: ContentviewRegistry = registry,
+    ensure_ascii: bool = True,
 ) -> ContentviewResult:
     data, enc = get_data(message)
     if data is None:
@@ -80,7 +81,7 @@ def prettify_message(
     # Finally, we can pretty-print!
     try:
         ret = ContentviewResult(
-            text=view.prettify(data, metadata),
+            text=view.prettify(data, metadata, ensure_ascii=ensure_ascii),
             syntax_highlight=view.syntax_highlight,
             view_name=view.name,
             description=enc,

@@ -341,7 +341,7 @@ class FlowDetails(tabs.Tabs):
         message: http.Message = self._get_content_view_message
         self._get_content_view_message = None  # type: ignore[assignment]
 
-        pretty = contentviews.prettify_message(message, self.flow, viewmode)
+        pretty = contentviews.prettify_message(message, self.flow, viewmode, ensure_ascii=self.master.options.ensure_ascii)
         cut_off = strutils.cut_after_n_lines(pretty.text, max_lines)
 
         chunks = mitmproxy_rs.syntax_highlight.highlight(

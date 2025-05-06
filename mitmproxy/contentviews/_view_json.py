@@ -7,9 +7,9 @@ from mitmproxy.contentviews._api import Metadata
 class JSONContentview(Contentview):
     syntax_highlight = "yaml"
 
-    def prettify(self, data: bytes, metadata: Metadata) -> str:
+    def prettify(self, data: bytes, metadata: Metadata, ensure_ascii: bool = True) -> str:
         data = json.loads(data)
-        return json.dumps(data, indent=4)
+        return json.dumps(data, indent=4, ensure_ascii=ensure_ascii)
 
     def render_priority(self, data: bytes, metadata: Metadata) -> float:
         if not data:

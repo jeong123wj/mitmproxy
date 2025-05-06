@@ -237,5 +237,16 @@ class Options(optmanager.OptManager):
             None,
             "Path to a .proto file that's used to resolve Protobuf field names when pretty-printing.",
         )
+        self.add_option(
+            "ensure_ascii",
+            bool,
+            True,
+            """
+            Escape non-ASCII characters in JSON output. When enabled,
+            non-ASCII characters are escaped using \\uXXXX sequences.
+            When disabled, Unicode characters are preserved as-is.
+            Enabled by default.
+            """,
+        )
 
         self.update(**kwargs)

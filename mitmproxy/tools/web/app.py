@@ -598,7 +598,7 @@ class FlowContentView(RequestHandler):
     ):
         if view_name and view_name.lower() == "auto":
             view_name = "auto"
-        pretty = contentviews.prettify_message(message, flow, view_name=view_name)
+        pretty = contentviews.prettify_message(message, flow, view_name=view_name, ensure_ascii=self.master.options.ensure_ascii)
         if max_lines:
             pretty.text = cut_after_n_lines(pretty.text, max_lines)
 

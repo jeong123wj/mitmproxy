@@ -44,6 +44,7 @@ class Contentview(typing.Protocol):
         self,
         data: bytes,
         metadata: Metadata,
+        ensure_ascii: bool = True,
     ) -> str:
         """
         Transform raw data into human-readable output.
