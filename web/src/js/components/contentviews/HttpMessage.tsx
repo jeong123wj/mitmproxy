@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { HTTPFlow, HTTPMessage } from "../../flow";
 import { useAppDispatch, useAppSelector } from "../../ducks";
 import { setContentViewFor } from "../../ducks/ui/flow";
@@ -46,6 +46,13 @@ type HttpMessageEditProps = {
     stopEdit: () => void;
 };
 
+const JSON_CONTENT_TYPE_REGEX =
+    /^\s*(?:application\/json|text\/json|[a-z0-9!#$&^_.+-]+\/[a-z0-9!#$&^_.+-]+\+json)\s*(?:;|$)/i;
+
+function isJsonByContentType(contentType?: string): boolean {
+    return !!contentType && JSON_CONTENT_TYPE_REGEX.test(contentType);
+}
+
 function HttpMessageEdit({ flow, message, stopEdit }: HttpMessageEditProps) {
     const dispatch = useAppDispatch();
     const editorRef = useRef<CodeEditor>(null);
@@ -54,6 +61,21 @@ function HttpMessageEdit({ flow, message, stopEdit }: HttpMessageEditProps) {
 
     const url = MessageUtils.getContentURL(flow, message);
     const content = useContent(url, message.contentHash);
+
+    const isJsonContentType = useMemo(
+        () => isJsonByContentType(MessageUtils.getContentType(message) || ""),
+        [message]
+    );
+
+    const initialContent = useMemo(() => {
+        const raw = content || "";
+        if (!isJsonContentType) return raw;
+        try {
+            return JSON.stringify(JSON.parse(raw), null, 4);
+        } catch {
+            return raw;
+        }
+    }, [content, isJsonContentType]);
 
     const save = async () => {
         const content = editorRef.current?.getContent();
@@ -80,7 +102,7 @@ function HttpMessageEdit({ flow, message, stopEdit }: HttpMessageEditProps) {
                     Cancel
                 </Button>
             </div>
-            <CodeEditor ref={editorRef} initialContent={content || ""} />
+            <CodeEditor ref={editorRef} initialContent={initialContent} />
         </div>
     );
 }
