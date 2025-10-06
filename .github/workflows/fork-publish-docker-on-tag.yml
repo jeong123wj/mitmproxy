@@ -1,0 +1,116 @@
+name: Build and Push mitmproxy Docker Image
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      image_version:
+        description: 'Docker image version tag (e.g., 12.0.0-fork01, test-build)'
+        required: true
+        type: string
+
+# 동일한 ref에 대해 중복 실행 방지
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  IMAGE_NAME: jeong123wj/mitmproxy
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Python 환경 설정
+      - name: Set up Python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      # wheel 빌드에 필요한 패키지 설치
+      - name: Install Python build tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install build
+
+      # mitmproxy wheel 패키지 빌드 (Dockerfile과 같은 디렉토리에 생성)
+      - name: Build mitmproxy wheel package
+        run: |
+          mkdir -p fork-release/docker
+          python -m build --wheel --outdir fork-release/docker/
+
+      # Docker 이미지 버전 결정
+      - name: Determine Docker image version
+        id: image_version
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "release" ]]; then
+            # Release 이벤트: 태그에서 버전 추출
+            VERSION="${{ github.ref_name }}"
+
+            # v로 시작하는 버전 태그면 v 제거 (예: v12.0.0-fork01 -> 12.0.0-fork01)
+            if [[ "$VERSION" =~ ^v[0-9] ]]; then
+              VERSION="${VERSION#v}"
+            fi
+          else
+            # 수동 실행 시 입력받은 버전 사용
+            VERSION="${{ inputs.image_version }}"
+
+            if [[ -z "$VERSION" ]]; then
+              echo "ERROR: image_version is required for manual workflow execution."
+              exit 1
+            fi
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      # 푸시할 Docker 태그 목록 준비
+      - name: Prepare Docker tags
+        id: docker_tags
+        shell: bash
+        run: |
+          # 기본 버전 태그
+          TAGS="${{ env.IMAGE_NAME }}:${{ steps.image_version.outputs.version }}"
+
+          # release 이벤트일 때 latest 태그 추가
+          if [[ "${{ github.event_name }}" == "release" ]]; then
+            TAGS="${TAGS},${{ env.IMAGE_NAME }}:latest"
+          fi
+
+          echo "tags=$TAGS" >> "$GITHUB_OUTPUT"
+
+      # ARM64 아키텍처 지원을 위한 QEMU 에뮬레이터 설정
+      - name: Set up QEMU for multi-arch builds
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Docker 이미지 빌드 및 푸시
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./fork-release/docker
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.docker_tags.outputs.tags }}
+
+      # 푸시된 이미지 태그 출력
+      - name: Display published images
+        run: |
+          echo "Pushed: ${{ env.IMAGE_NAME }}:${{ steps.image_version.outputs.version }}"
+          if [[ "${{ github.event_name }}" == "release" ]]; then
+            echo "Pushed: ${{ env.IMAGE_NAME }}:latest"
+          fi
