@@ -1,42 +1,93 @@
 # mitmproxy
 
-[![Continuous Integration Status](https://github.com/mitmproxy/mitmproxy/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/mitmproxy/mitmproxy/actions?query=branch%3Amain)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a38b0325dfb944839c0c8da354f70b1b)](https://app.codacy.com/gh/mitmproxy/mitmproxy/dashboard)
-[![autofix.ci: enabled](https://shields.mitmproxy.org/badge/autofix.ci-yes-success?logo=data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjZmZmIiB2aWV3Qm94PSIwIDAgMTI4IDEyOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCB0cmFuc2Zvcm09InNjYWxlKDAuMDYxLC0wLjA2MSkgdHJhbnNsYXRlKC0yNTAsLTE3NTApIiBkPSJNMTMyNSAtMzQwcS0xMTUgMCAtMTY0LjUgMzIuNXQtNDkuNSAxMTQuNXEwIDMyIDUgNzAuNXQxMC41IDcyLjV0NS41IDU0djIyMHEtMzQgLTkgLTY5LjUgLTE0dC03MS41IC01cS0xMzYgMCAtMjUxLjUgNjJ0LTE5MSAxNjl0LTkyLjUgMjQxcS05MCAxMjAgLTkwIDI2NnEwIDEwOCA0OC41IDIwMC41dDEzMiAxNTUuNXQxODguNSA4MXExNSA5OSAxMDAuNSAxODAuNXQyMTcgMTMwLjV0MjgyLjUgNDlxMTM2IDAgMjU2LjUgLTQ2IHQyMDkgLTEyNy41dDEyOC41IC0xODkuNXExNDkgLTgyIDIyNyAtMjEzLjV0NzggLTI5OS41cTAgLTEzNiAtNTggLTI0NnQtMTY1LjUgLTE4NC41dC0yNTYuNSAtMTAzLjVsLTI0MyAtMzAwdi01MnEwIC0yNyAzLjUgLTU2LjV0Ni41IC01Ny41dDMgLTUycTAgLTg1IC00MS41IC0xMTguNXQtMTU3LjUgLTMzLjV6TTEzMjUgLTI2MHE3NyAwIDk4IDE0LjV0MjEgNTcuNXEwIDI5IC0zIDY4dC02LjUgNzN0LTMuNSA0OHY2NGwyMDcgMjQ5IHEtMzEgMCAtNjAgNS41dC01NCAxMi41bC0xMDQgLTEyM3EtMSAzNCAtMiA2My41dC0xIDU0LjVxMCA2OSA5IDEyM2wzMSAyMDBsLTExNSAtMjhsLTQ2IC0yNzFsLTIwNSAyMjZxLTE5IC0xNSAtNDMgLTI4LjV0LTU1IC0yNi41bDIxOSAtMjQydi0yNzZxMCAtMjAgLTUuNSAtNjB0LTEwLjUgLTc5dC01IC01OHEwIC00MCAzMCAtNTMuNXQxMDQgLTEzLjV6TTEyNjIgNjE2cS0xMTkgMCAtMjI5LjUgMzQuNXQtMTkzLjUgOTYuNWw0OCA2NCBxNzMgLTU1IDE3MC41IC04NXQyMDQuNSAtMzBxMTM3IDAgMjQ5IDQ1LjV0MTc5IDEyMXQ2NyAxNjUuNWg4MHEwIC0xMTQgLTc3LjUgLTIwNy41dC0yMDggLTE0OXQtMjg5LjUgLTU1LjV6TTgwMyA1OTVxODAgMCAxNDkgMjkuNXQxMDggNzIuNWwyMjEgLTY3bDMwOSA4NnE0NyAtMzIgMTA0LjUgLTUwdDExNy41IC0xOHE5MSAwIDE2NSAzOHQxMTguNSAxMDMuNXQ0NC41IDE0Ni41cTAgNzYgLTM0LjUgMTQ5dC05NS41IDEzNHQtMTQzIDk5IHEtMzcgMTA3IC0xMTUuNSAxODMuNXQtMTg2IDExNy41dC0yMzAuNSA0MXEtMTAzIDAgLTE5Ny41IC0yNnQtMTY5IC03Mi41dC0xMTcuNSAtMTA4dC00MyAtMTMxLjVxMCAtMzQgMTQuNSAtNjIuNXQ0MC41IC01MC41bC01NSAtNTlxLTM0IDI5IC01NCA2NS41dC0yNSA4MS41cS04MSAtMTggLTE0NSAtNzB0LTEwMSAtMTI1LjV0LTM3IC0xNTguNXEwIC0xMDIgNDguNSAtMTgwLjV0MTI5LjUgLTEyM3QxNzkgLTQ0LjV6Ii8+PC9zdmc+)](https://autofix.ci)
-[![Coverage Status](https://shields.mitmproxy.org/codecov/c/github/mitmproxy/mitmproxy/main.svg?label=codecov)](https://codecov.io/gh/mitmproxy/mitmproxy)
-[![Latest Version](https://shields.mitmproxy.org/pypi/v/mitmproxy.svg)](https://pypi.python.org/pypi/mitmproxy)
-[![Supported Python versions](https://shields.mitmproxy.org/pypi/pyversions/mitmproxy.svg)](https://pypi.python.org/pypi/mitmproxy)
+[![GitHub Release](https://img.shields.io/github/v/release/jeong123wj/mitmproxy)](https://github.com/jeong123wj/mitmproxy/releases)
 
-``mitmproxy`` is an interactive, SSL/TLS-capable intercepting proxy with a console
-interface for HTTP/1, HTTP/2, and WebSockets.
+This project is a fork of [mitmproxy](https://github.com/mitmproxy/mitmproxy), an interactive TLS-capable intercepting proxy for HTTP/1, HTTP/2, and WebSockets. Unlike the upstream project, this fork focuses on **mitmweb**, the web-based interface for mitmproxy. It introduces additional features and improvements tailored for specific use cases.
 
-``mitmdump`` is the command-line version of mitmproxy. Think tcpdump for HTTP.
+## ✨ Features
 
-``mitmweb`` is a web-based interface for mitmproxy.
+### JSON Unicode Output Option
 
-## Installation
+New options `--ensure-ascii` and `--no-ensure-ascii` have been added to control how Unicode characters are displayed in JSON output.
 
-The installation instructions are [here](https://docs.mitmproxy.org/stable/overview-installation).
-If you want to install from source, see [CONTRIBUTING.md](./CONTRIBUTING.md).
+- `--ensure-ascii` (default): Non-ASCII characters are escaped as \uXXXX sequences.
 
-## Documentation & Help
+- `--no-ensure-ascii`: Unicode characters are preserved and displayed as-is.
 
-General information, tutorials, and precompiled binaries can be found on the mitmproxy website.
+### JSON Body Pretty-Print in HttpMessage Editor
 
-[![mitmproxy.org](https://shields.mitmproxy.org/badge/https%3A%2F%2F-mitmproxy.org-blue.svg)](https://mitmproxy.org/)
+- In edit mode, if the `Content-Type` header indicates JSON, the body is automatically pretty-printed.
 
-The documentation for mitmproxy is available on our website:
+## 🐳 Running with Docker
 
-[![mitmproxy documentation stable](https://shields.mitmproxy.org/badge/docs-stable-brightgreen.svg)](https://docs.mitmproxy.org/stable/)
-[![mitmproxy documentation dev](https://shields.mitmproxy.org/badge/docs-dev-brightgreen.svg)](https://docs.mitmproxy.org/dev/)
+You can run this fork of mitmproxy directly inside a Docker container, making it easy to set up without installing local dependencies.
 
-If you have questions on how to use mitmproxy, please
-use GitHub Discussions!
+```bash
+# Pull from Docker Hub
+docker pull jeong123wj/mitmproxy
 
-[![mitmproxy discussions](https://shields.mitmproxy.org/badge/help-github%20discussions-orange.svg)](https://github.com/mitmproxy/mitmproxy/discussions)
+# Run mitmweb inside a container
+# Port 8080: proxy traffic
+# Port 8081: web interface
+docker run -dt --name mitmweb -p 8080:8080 -p 127.0.0.1:8081:8081 jeong123wj/mitmproxy
 
-## Contributing
+# Check the logs to get the authentication token
+docker logs mitmweb
+```
 
-As an open source project, mitmproxy welcomes contributions of all forms.
+After running the container, check the logs to find the authentication token. You'll see output like:
 
-[![Dev Guide](https://shields.mitmproxy.org/badge/dev_docs-CONTRIBUTING.md-blue)](./CONTRIBUTING.md)
+```
+Web server listening at http://0.0.0.0:8081/?token=<token>
+```
+
+Since the container's port 8081 is mapped to your host's port 8081, copy the token from the logs and access the mitmweb UI at:
+
+```
+http://localhost:8081/?token=<token>
+```
+
+## 🚀 Installation & Development
+
+### Prerequisites
+
+- Python 3.12+
+- uv
+
+### Optional Tools
+
+- npm (for frontend development)
+- Docker (for containerized deployment)
+
+### Installation
+
+```bash
+# Clone repository
+git clone https://github.com/jeong123wj/mitmproxy.git
+cd mitmproxy
+
+# Run mitmweb
+uv run mitmweb
+```
+
+### Frontend Development
+
+```bash
+# Install web dependencies
+cd web
+npm install
+
+# Run development server
+npm run start
+
+# Build for production
+npm run build
+```
+
+## 📜 License
+
+This fork follows the same license as upstream mitmproxy (MIT). See [LICENSE](LICENSE) for details.
+
+## 🙏 Acknowledgements
+
+Thanks to the [mitmproxy](https://github.com/mitmproxy/mitmproxy) maintainers and community.
